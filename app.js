@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import authRouther from './routes/authRouther.js';
+import dataRouter from './routes/dataRouter.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCzOW1PaEGuaT_4EfScZzDeo7U_S5oanb8',
@@ -19,10 +21,8 @@ const app = initializeApp(firebaseConfig);
 
 const expressApp = express();
 expressApp.use(express.json());
-
-expressApp.get('/', (req, res) => {
-  res.send('Hello World');
-});
+app.use('/auth', authRouther);
+app.use('/data', dataRouter);
 
 expressApp.post('/register', (req, res) => {
   const { email, password } = req.body;
