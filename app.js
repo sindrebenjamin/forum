@@ -1,28 +1,14 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import authRouther from './routes/authRouther.js';
+// import authRouther from './routes/authRouther.js';
 import dataRouter from './routes/dataRouter.js';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyCzOW1PaEGuaT_4EfScZzDeo7U_S5oanb8',
-  authDomain: 'forum-414310.firebaseapp.com',
-  projectId: 'forum-414310',
-  storageBucket: 'forum-414310.appspot.com',
-  messagingSenderId: '456924353762',
-  appId: '1:456924353762:web:932638137493d647b3babb',
-  measurementId: 'G-MT6GQHD8BY',
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
+import { app } from './firebase.js';
 
 const expressApp = express();
 expressApp.use(express.json());
-app.use('/auth', authRouther);
-app.use('/data', dataRouter);
+// app.use('/auth', authRouther);
+expressApp.use('/data', dataRouter);
 
 expressApp.post('/register', (req, res) => {
   const { email, password } = req.body;
