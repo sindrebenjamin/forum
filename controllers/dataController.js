@@ -43,6 +43,26 @@ export const getData = async (req, res) => {
   res.json(data);
 };
 
+export const getSingleData = async (req, res) => {
+  req.headers.authorization = `Bearer ${token}`;
+
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json('Id is required');
+  }
+
+  const dataCollection = collection(db, 'Posts');
+  const dataSnapshot = await getDocs(dataCollection);
+  const docRef = doc(dataCollection, id);
+  if (!docRef) {
+    return res.status(404).json('Post not found');
+  }
+
+  const data = dataSnapshot.docs.find((doc) => doc.id === id).data();
+
+  res.json(data);
+};
+
 export const postData = async (req, res) => {
   req.headers.authorization = `Bearer ${token}`;
 

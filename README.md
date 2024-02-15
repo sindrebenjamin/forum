@@ -1,5 +1,7 @@
 # Project Documentation
 
+IMPORTANT! Before doing any requests, you have to make a POST request to login to the app with Postman.
+
 This project is a simple REST API built with Express.js and Firebase Firestore as the datastore. It provides endpoints for user authentication and CRUD operations on 'Posts' data.
 
 ## Datastore
